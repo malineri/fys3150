@@ -6,9 +6,8 @@ import torchvision.models as models
 
 A = np.array([[2, -1, 0, 0], [-1, 2, -1, 0], [0, -1, 2, -1], [0, 0, -1, 2]])
 
-
 def f(i):
-    f = 100*np.exp(-10*x)
+    f = 100*np.exp(-10*i)
     return f
 
 
