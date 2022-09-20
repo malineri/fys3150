@@ -2,6 +2,7 @@ import numpy as np
 from scipy.linalg import solve
 from flopth import flopth
 import torchvision.models as models
+import matplotlib.pyplot as plt
 
 
 A = np.array([[2, -1, 0, 0], [-1, 2, -1, 0], [0, -1, 2, -1], [0, 0, -1, 2]])
@@ -28,6 +29,16 @@ v = np.array([0, s[0], s[1], s[2], s[3], 0])
 
 res = "\n".join("{} {}".format(x, y) for x, y in zip(x, v))
 #print(res)
+#sum_flops = flopth(v, in_size=[[4], [4]])
+#print(sum_flops)
+
+
+plt.title("Finding v and corresponding x from Av = g matrix equation")
+plt.plot(x, v)
+plt.xlabel("x-values")
+plt.ylabel("corresponding v values")
+plt.show()
+
 
 
 
@@ -53,7 +64,7 @@ for i in range(n + 1):
 
 
 g[n] = h**2*func[n] + 1
-print(g)
+#print(g)
 
 
 b = np.zeros(n + 1)
@@ -77,13 +88,5 @@ for i in range(0, n - 1, n):
 v[n] = g[n]/b[n]
 
 
-
-
-
 res = "\n".join("{} {}".format(x, y) for x, y in zip(x_2, v))
-print(res)
-
-
-
-#sum_flops = flopth(v, in_size=[[4], [4]])
-#print(sum_flops)
+#print(res)
