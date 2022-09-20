@@ -5,12 +5,21 @@
 #include <cmath>
 #include <vector>
 
+
 std::vector<double> relative(std::vector<double> u, std::vector<double> v){
   std::vector<double> w;
   for (double i; i <u.size(); i++){
     w.push_back(abs((u[i] - v[i])/(u[i])));
   }
   return w;
+}
+
+std::vector<double> absolute(std::vector<double> u, std::vector<double> v){
+  std::vector<double> x;
+  for (double i; i <u.size(); i++){
+    x.push_back(abs((u[i] - v[i])));
+  }
+  return x;
 }
 
 
@@ -38,12 +47,14 @@ int main()
   v.push_back(0.0);
 
   std::vector<double> w = relative(u, v);
+  std::vector<double> x = absolute(u, v);
 
 
   // Output a header
   std::cout << "#" << std::setw(width-1) << "u"
             << "#" << std::setw(width-1) << "v"
             << std::setw(width) << "w"
+            << std::setw(width) << "x"
             << std::endl;
 
     // Output to screen
@@ -51,6 +62,7 @@ int main()
       std::cout << std::setw(width) << std::setprecision(prec) << std::scientific << u[i]
       << std::setw(width) << std::setprecision(prec) << std::scientific << v[i]
       << std::setw(width) << std::setprecision(prec) << std::scientific << w[i]
+      << std::setw(width) << std::setprecision(prec) << std::scientific << x[i]
       << std::endl;
     }
 
