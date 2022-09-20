@@ -24,10 +24,13 @@ g4 = h**2*f[4] + 1
 
 g = np.array([g1, g2, g3, g4])
 
-v = solve(A, g)
-print(v)
+s = solve(A, g)
+v = np.array([0, s[0], s[1], s[2], s[3], 0])
+
+res = "\n".join("{} {}".format(x, y) for x, y in zip(x, v))
+print(res)
 
 
 
-sum_flops = flopth(v, in_size=[[4], [4]])
-print(sum_flops)
+#sum_flops = flopth(v, in_size=[[4], [4]])
+#print(sum_flops)
