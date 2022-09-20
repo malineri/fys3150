@@ -8,7 +8,7 @@
 std::vector<double> relative(std::vector<double> u, std::vector<double> v){
   std::vector<double> w;
   for (double i; i <u.size(); i++){
-    w.push_back((u[i] - v[i])/(u[i]));
+    w.push_back(abs((u[i] - v[i])/(u[i])));
   }
   return w;
 }
