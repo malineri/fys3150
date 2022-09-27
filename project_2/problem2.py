@@ -16,17 +16,11 @@ print(x)
 
 
 eigenvalues = np.zeros(N)
-eigenvalues[0] = np.linalg.det(A - np.eye(len(A))*x[0])
-eigenvalues[1] = np.linalg.det(A - np.eye(len(A))*x[1])
-eigenvalues[2] = np.linalg.det(A - np.eye(len(A))*x[2])
-eigenvalues[3] = np.linalg.det(A - np.eye(len(A))*x[3])
-eigenvalues[4] = np.linalg.det(A - np.eye(len(A))*x[4])
-eigenvalues[5] = np.linalg.det(A - np.eye(len(A))*x[5])
 
 
 
-#for i in range(0, N - 1, N):
-#    eigenvalues[i] = np.linalg.det(A - np.eye(len(A))*x[i])
+for i in range(0, N, 1):
+    eigenvalues[i] = np.linalg.det(A - np.eye(len(A))*x[i])
 
 
 
