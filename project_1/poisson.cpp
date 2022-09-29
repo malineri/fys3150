@@ -29,17 +29,11 @@ int main()
 
 
     std::vector<double> x;
-    x.push_back(0.);
-    x.push_back(0.1);
-    x.push_back(0.2);
-    x.push_back(0.3);
-    x.push_back(0.4);
-    x.push_back(0.5);
-    x.push_back(0.6);
-    x.push_back(0.7);
-    x.push_back(0.8);
-    x.push_back(0.9);
-    x.push_back(1.0);
+    int n = 10;
+    int h = 1/(n-1);
+
+    for (int h; h <= n; h++)
+      x.push_back(0.1*h);
 
     for (double i; i <x.size(); i++)
         std::cout << i << " ";
