@@ -6,12 +6,12 @@ N = 6
 a, b, c = [1]*(N - 1), [-2]*N, [1]*(N - 1)
 
 A = np.diag(a, -1) + np.diag(b, 0) + np.diag(c, 1)
-#print(A)
 
-x, V = np.linalg.eig(A)
-assert np.allclose(V @ np.diag(x), A @ V)
 
-print(x)
+l, v = np.linalg.eig(A)
+assert np.allclose(v @ np.diag(l), A @ v)
+
+print(l, v)
 
 
 
@@ -20,8 +20,8 @@ eigenvalues = np.zeros(N)
 
 
 for i in range(0, N, 1):
-    eigenvalues[i] = np.linalg.det(A - np.eye(len(A))*x[i])
+    eigenvalues[i] = np.linalg.det(A - np.eye(len(A))*l[i])
 
 
 
-print(eigenvalues)
+#print(eigenvalues)

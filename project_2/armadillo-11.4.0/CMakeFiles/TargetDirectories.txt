@@ -1,0 +1,16 @@
+/Users/malineriksen/Documents/Skole/Computational_Physics/fys3150/fys3150/project_2/armadillo-11.4.0/CMakeFiles/armadillo.dir
+/Users/malineriksen/Documents/Skole/Computational_Physics/fys3150/fys3150/project_2/armadillo-11.4.0/CMakeFiles/test.dir
+/Users/malineriksen/Documents/Skole/Computational_Physics/fys3150/fys3150/project_2/armadillo-11.4.0/CMakeFiles/edit_cache.dir
+/Users/malineriksen/Documents/Skole/Computational_Physics/fys3150/fys3150/project_2/armadillo-11.4.0/CMakeFiles/rebuild_cache.dir
+/Users/malineriksen/Documents/Skole/Computational_Physics/fys3150/fys3150/project_2/armadillo-11.4.0/CMakeFiles/list_install_components.dir
+/Users/malineriksen/Documents/Skole/Computational_Physics/fys3150/fys3150/project_2/armadillo-11.4.0/CMakeFiles/install.dir
+/Users/malineriksen/Documents/Skole/Computational_Physics/fys3150/fys3150/project_2/armadillo-11.4.0/CMakeFiles/install/local.dir
+/Users/malineriksen/Documents/Skole/Computational_Physics/fys3150/fys3150/project_2/armadillo-11.4.0/CMakeFiles/install/strip.dir
+/Users/malineriksen/Documents/Skole/Computational_Physics/fys3150/fys3150/project_2/armadillo-11.4.0/tests1/CMakeFiles/smoke_test.dir
+/Users/malineriksen/Documents/Skole/Computational_Physics/fys3150/fys3150/project_2/armadillo-11.4.0/tests1/CMakeFiles/test.dir
+/Users/malineriksen/Documents/Skole/Computational_Physics/fys3150/fys3150/project_2/armadillo-11.4.0/tests1/CMakeFiles/edit_cache.dir
+/Users/malineriksen/Documents/Skole/Computational_Physics/fys3150/fys3150/project_2/armadillo-11.4.0/tests1/CMakeFiles/rebuild_cache.dir
+/Users/malineriksen/Documents/Skole/Computational_Physics/fys3150/fys3150/project_2/armadillo-11.4.0/tests1/CMakeFiles/list_install_components.dir
+/Users/malineriksen/Documents/Skole/Computational_Physics/fys3150/fys3150/project_2/armadillo-11.4.0/tests1/CMakeFiles/install.dir
+/Users/malineriksen/Documents/Skole/Computational_Physics/fys3150/fys3150/project_2/armadillo-11.4.0/tests1/CMakeFiles/install/local.dir
+/Users/malineriksen/Documents/Skole/Computational_Physics/fys3150/fys3150/project_2/armadillo-11.4.0/tests1/CMakeFiles/install/strip.dir
