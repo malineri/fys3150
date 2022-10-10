@@ -116,20 +116,20 @@ To solve this problem we will be using matrices. We write a short program to set
 \begin{algorithm}[H]
     \caption{Creating function that takes values from diagonal and makes a tridiagonal matrix.}\label{av_lik_lv}
     \begin{algorithmic}
-    	\State int main(){
+    	\State int main()\{
 	\State arma::mat create tridiagonal(int n, double a, double d, double e)
 	\State arma::mat A = arma::mat(n, n, arma::fill::eye); \Comment{n x n identity matrix}
         \State int N = 6  \Comment{We begin with setting the length of the matrix N = 6}
         \State A(0, 0) = d; A(1, 0) = e; A(0, 1) = a;  \Comment{Manually filling in values of A, Could potentially be done more efficiantly in a loop.}
  	\State return A;
-	\State }
+	\State \}
     \end{algorithmic}
 \end{algorithm}
 We now want to put in values of N, a, d and e, to determine our exact values. We want those to be a, $e = -1/h^2$ and $d = -2/h^2$. And we also want the program to print the eigenvalues and eigenvectors. A program returning the matrix, its eigenvalue and its corresponding eigenvectors is written in Algorithm 2.
 \begin{algorithm}[H]
     \caption{Our main containing the values of our matrix, and printing the matrix, its eigenvector and eigenvalues.}\label{av_lik_lv}
     \begin{algorithmic}
-    	\State int main(){
+    	\State int main()\{
 	\State int N = 6.; float h = 1.; float a = (-1.)/(h*h); float d = (2.)/(h*h); \Comment{Setting values we use in the matrix}
 	\State arma::mat A = create tridiagonal(N, a, d, a); \Comment{Create matrix A from function}
         \State int N = 6  \Comment{We begin with setting the length of the matrix N = 6}
@@ -144,7 +144,7 @@ We now want to put in values of N, a, d and e, to determine our exact values. We
         \State std::cout $<<$ ”\#” $<<$ std::setw(width-1) $<<$ eigval
         \State $<<$ std::endl;
  	\State return 0;
-	\State }
+	\State \}
     \end{algorithmic}
 \end{algorithm}
 Now that we have found the eigenvalues and corresponding eigenvectors we print the results, to make it easier to compare the analytical and numerical solutions we remove the /h2 part of the a, d and e values, so that we use the simple tridiagonal matrix with 2 on the diagonal and -1 on the upper and lower diagonal. This gives us the results we can see in table(1).
@@ -195,6 +195,82 @@ We make a program that solves this algorithm for our N = 6 case. This program is
 
 
 \section*{Problem 3}
+\subsection*{a)}\
+\\
+In general we would like to be able to take any matrix and find the operations needed to create this into a identity matrix using the Jacobi rotation method. And then later from this method finding the eigenvectors and values of the matrix. To be able to create a program that uses the Jacobi rotation method we first write a program that takes a matrix and finds the biggest off diagonal element. The algorithm(3) is used for this function.
+\begin{algorithm}[H]
+    \caption{Creating function that finds the biggest off diagonal element in a matrix A}\label{av_lik_lv}
+    \begin{algorithmic}
+    	\State double max\_offdiag\_symmetric(const arma::mat\& A)\{
+	\State double m = INT\_MIN;
+	\State for (int i = 0; i $<$ A.n\_rows; i++)\{
+        \State for (int j = 0; j $<$ i; j++)\{
+        \State if (abs(A(i, j)) $>$ m)\{
+ 	\State m = A(i, j);
+	\State \}
+	\State \}
+	\State \}
+	\State return m;
+	\State \}
+    \end{algorithmic}
+\end{algorithm}
+\subsection*{b)}\
+\\
+Now we apply this function to a known matrix to see if we get the output we are looking for. We use the matrix A from equation(3). 
+\begin{equation}
+A = \begin{bmatrix}
+1 & 0 & 0 & 0.5\\
+0 & 1 & -0.7 & 0\\
+0 & -0.7 & 1 & 0\\
+0.5 & 0 & 0 & 1\\
+\end{bmatrix}
+\end{equation}
+We check only under the diagonal for our program since our matrix is symmetric over and under the diagonal. We know already from our matrix that the biggest absolute value is 0.7, and that the biggest plus value is 0.5. In our program we have the print of 0.5, unless we take the absolute value of the matrix. If we do so we find the greatest value to be 0.7. This we can test with other matrices aswell, and if it turnes out that the matrix has a negative value that is bigger than the positive value we may change the algorithm(3) to contain $m = A(A_n.rows - 1, 0)$, to have the biggest negative value. Otherwise we will have the same result in eigenvalues and vectors, only that this will also then be the absolute value. The algorithm implementing the matrix to the function above is represented in algorithm(4). 
+\begin{algorithm}[H]
+    \caption{Our main containing the values of our matrix, and printing the matrix, its eigenvector and eigenvalues.}\label{av_lik_lv}
+    \begin{algorithmic}
+    	\State int main()\{
+	\State int N = 4; \Comment{Setting values we use in the matrix}
+	\State arma::mat A = arma::mat(N, N, arma::fill::eye);
+        \State A(0, 3) = 0.5; A(1, 2) = -0.7; A(2, 1) = -0.7; A(3, 0) = 0.5; \Comment{filling in the exact matrix elements}
+        \State arma::mat B = abs(A); \Comment{taking the absolute value of the matrix, otherwise the element -0.7 will not be counted}
+        \State double max\_value = max\_offdiag\_symmetric(B);
+        \State std::cout<< max\_value;
+ 	\State return 0;
+	\State \}
+    \end{algorithmic}
+\end{algorithm}
+
+\section*{Problem 4}
+\subsection*{a)}\
+\\
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 -
    
 \end{document}
