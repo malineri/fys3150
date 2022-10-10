@@ -110,22 +110,44 @@ Now we introduce a new variable lambda $\lambda = \frac{F L^2}{\gamma}$ then we 
 
 
 
-\section*{Problem 2}
-To solve this problem we will be using matrices. We write a short program to set up a tridiagonal NxN matrix \textbf{A}, when N = 6. We want this matrix to solve the classic eigenvector, eigenvalue problem $\mathbf{A}\vec{v} = \lambda \vec{v}$ in the same way we formulated our dimensionless equation(2).\footnote{https://stackoverflow.com/questions/70556590/how-to-solve-for-eigen-value-of-a-matrix-numerically}
+\section*{Problem 2}\
+\\
+To solve this problem we will be using matrices. We write a short program to set up a tridiagonal NxN matrix A, when N = 6. We want this matrix to solve the classic eigenvector, eigenvalue problem $\mathbf{A} \vec{v} = \lambda \vec{v}$ in the same way we formulated our dimensionless equation(2).\footnote{https://stackoverflow.com/questions/70556590/how-to-solve-for-eigen-value-of-a-matrix-numerically} We being with creating an algorithm with a general function that determines a tridiagonal matrix. This algorithm we see in Algorithm 1.
 \begin{algorithm}[H]
-    \caption{Set up for matrix equation of eigenvalues and eigenvectors in Python}\label{av_lik_lv}
+    \caption{Creating function that takes values from diagonal and makes a tridiagonal matrix.}\label{av_lik_lv}
     \begin{algorithmic}
-    	%\State int main()
-	\State from scipy.sparse import coo\_matrix
-	\State import numpy as np
+    	\State int main(){
+	\State arma::mat create tridiagonal(int n, double a, double d, double e)
+	\State arma::mat A = arma::mat(n, n, arma::fill::eye); \Comment{n x n identity matrix}
         \State int N = 6  \Comment{We begin with setting the length of the matrix N = 6}
-        \State a, b, c = [1]*(N - 1), [-2]*N, [1]*(N - 1);  \Comment{Creating a NxN tridiagonal matrix, with 1, -2 and 1.}
- 	\State A = np.diag(a, -1) + np.diag(b, 0) + np.diag(c, 1)
-        \State l, v = np.linalg.eig(A)  \Comment{Finding eigenvalues $\lambda$ and eigenvektors $\vec{v}$}
-        \State assert np.allclose(v @ np.diag(l), A @ v)
+        \State A(0, 0) = d; A(1, 0) = e; A(0, 1) = a;  \Comment{Manually filling in values of A, Could potentially be done more efficiantly in a loop.}
+ 	\State return A;
+	\State }
     \end{algorithmic}
 \end{algorithm}
-Now that we have found the eigenvalues and corresponding eigenvectors we print the results, which we can see in table (1). 
+We now want to put in values of N, a, d and e, to determine our exact values. We want those to be a, $e = -1/h^2$ and $d = -2/h^2$. And we also want the program to print the eigenvalues and eigenvectors. A program returning the matrix, its eigenvalue and its corresponding eigenvectors is written in Algorithm 2.
+\begin{algorithm}[H]
+    \caption{Our main containing the values of our matrix, and printing the matrix, its eigenvector and eigenvalues.}\label{av_lik_lv}
+    \begin{algorithmic}
+    	\State int main(){
+	\State int N = 6.; float h = 1.; float a = (-1.)/(h*h); float d = (2.)/(h*h); \Comment{Setting values we use in the matrix}
+	\State arma::mat A = create tridiagonal(N, a, d, a); \Comment{Create matrix A from function}
+        \State int N = 6  \Comment{We begin with setting the length of the matrix N = 6}
+        \State arma::vec eigval;
+        \State arma::mat eigvec;
+        \State arma::eig sym(eigval, eigvec, A);
+        \State int width = 18; int prec = 10; \Comment{Parameters for output formatting}
+        \State std::cout $<<$ ”\#” $<<$ std::setw(width-1) $<<$ A
+        \State $<<$ std::endl;
+        \State std::cout $<<$ ”\#” $<<$ std::setw(width-1) $<<$ eigvec
+        \State $<<$ std::endl;
+        \State std::cout $<<$ ”\#” $<<$ std::setw(width-1) $<<$ eigval
+        \State $<<$ std::endl;
+ 	\State return 0;
+	\State }
+    \end{algorithmic}
+\end{algorithm}
+Now that we have found the eigenvalues and corresponding eigenvectors we print the results, to make it easier to compare the analytical and numerical solutions we remove the /h2 part of the a, d and e values, so that we use the simple tridiagonal matrix with 2 on the diagonal and -1 on the upper and lower diagonal. This gives us the results we can see in table(1).
 \begin{table}%[h!]
     \centering
     \caption{Eigenvalues and corresponding eigenvectors of a tridiagonal matrix A}
@@ -133,12 +155,12 @@ Now that we have found the eigenvalues and corresponding eigenvectors we print t
         \hline
         Eigenvalues $\lambda$ & Eigenvectors $\vec{v}$ \\
         \hline
-       $-3.80193774$ & [-0.23192061, -0.41790651, -0.52112089, -0.23192061, 0.52112089, -0.41790651]\\
-        $-3.2469796$ &  [0.41790651,  0.52112089,  0.23192061, -0.41790651,  0.23192061, -0.52112089] \\
-        $-2.44504187$ & [-0.52112089, -0.23192061,  0.41790651, -0.52112089, -0.41790651, -0.23192061]\\
-        $-0.19806226$ &  [ 0.52112089, -0.23192061, -0.41790651, -0.52112089, -0.41790651,  0.23192061]\\
-        $-1.55495813$ &  [-0.41790651,  0.52112089, -0.23192061, -0.41790651,  0.23192061,  0.52112089]\\
-        $-0.7530204$ & [ 0.23192061, -0.41790651,  0.52112089, -0.23192061,  0.52112089,  0.41790651]\\
+        0.1981 & [0.2319, 0.4179, 0.5211, 0.5211, 0.4179, 0.2319] \\
+        0.7530 &  [-0.4179, -0.5211, -0.2319, 0.2319, 0.5211, 0.4179] \\
+        1.5550 & [0.5211, 0.2319, -0.4179, -0.4179, 0.2319, 0.5211]\\
+        2.4450 &  [ 0.5211, -0.2319, -0.4179, 0.4179, 0.2319, -0.5211]\\
+        3.2470 &  [0.4179, -0.5211, 0.2319, 0.2319, -0.5211, 0.4179]\\
+        3.8019 & [-0.2319, 0.4179, -0.5211, 0.5211, -0.4179, 0.2319]\\
         \hline
     \end{tabular}\label{tab:output_table}
 \end{table}
@@ -150,23 +172,23 @@ We can check if these values are correct by comparing the results to the analyti
 \vec{v}^{i} = \bigg[ \sin \bigg(\frac{i \pi}{N + 1} \bigg), \sin \bigg( \frac{2i \pi}{N + 1} \bigg), ... , \sin \bigg(\frac{Ni \pi}{N + 1} \bigg) \bigg]^T 
 \end{align*}
 Where i = 1, ... , N. 
-
-
-
-
-
-In this program we used the matrix A, which is just the second derivative, but without the special values of our case. 
-\begin{align*}
-     A = \begin{bmatrix}
-    2 & 1 & 0 & 0 & 0 & 0 \\
-    1 & 2 & 1 & 0 & 0 & 0 \\
-    0 & 1 & 2 & 1 & 0 & 0 \\
-    0 & 0 & 1 & 2 & 1 & 0 \\
-    0 & 0 & 0 & 1 & 2 & 1 \\
-    0 & 0 & 0 & 0 & 1 & 2
-    \end{bmatrix}
-\end{align*}
-
+We make a program that solves this algorithm for our N = 6 case. This program is called \textit{analytical 2.py}, and the algorithm is added to the github repo. We get the same values on the eigenvalues, but we get different eigenvectors, something that tells us there must be a small mistake in one of the programs. If time I will go back and look at potential mistakes in the program. In table(2) we see the values we get from the analytical solution.
+\begin{table}%[h!]
+    \centering
+    \caption{Eigenvalues and corresponding eigenvectors of a tridiagonal matrix A}
+    \begin{tabular}{c@{\hspace{1cm}} c}
+        \hline
+        Eigenvalues $\lambda$ & Eigenvectors $\vec{v}$ \\
+        \hline
+        0.1981 & [0.43388374, -0.78183148, 0.97492791, -0.97492791,0.78183148, -0.43388374]\\
+        0.7530 &  [0.78183148, -0.97492791, 0.43388374, 0.43388374, -0.97492791, 0.78183148]\\
+        1.5550 & [0.97492791, -0.43388374, -0.78183148, 0.78183148, 0.43388374, -0.97492791]\\
+        2.4450 &  [0.97492791, 0.43388374, -0.78183148, -0.78183148, 0.43388374, 0.97492791]\\
+        3.2470 &  [0.78183148, 0.97492791, 0.43388374, -0.43388374, -0.97492791, -0.78183148]\\
+        3.8019 & [0.43388374, 0.78183148, 0.97492791, 0.97492791, 0.78183148, 0.43388374]\\
+        \hline
+    \end{tabular}\label{tab:output_table}
+\end{table}
 
  
 
