@@ -8,10 +8,10 @@
 
 //creating function that changes the biggest offdiag element
 double max_offdiag_symmetric(const arma::mat& A){
-  double m = 0;
+  double m = INT_MIN;
   for (int i = 0; i < A.n_rows; i++){
     for (int j = 0; j < i; j++){
-      if (A(i, j) > 0){
+      if (abs(A(i, j)) > m){
         m = A(i, j);
       }
     }
@@ -29,7 +29,9 @@ int main (){
   A(2, 1) = -0.7;
   A(3, 0) = 0.5;
 
-  double max_value = max_offdiag_symmetric(A);
+  arma::mat B = abs(A);
+
+  double max_value = max_offdiag_symmetric(B);
 
   std::cout<< max_value;
 
