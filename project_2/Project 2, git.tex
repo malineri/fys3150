@@ -244,6 +244,47 @@ We check only under the diagonal for our program since our matrix is symmetric o
 \section*{Problem 4}
 \subsection*{a)}\
 \\
+The Jacobi rotation method is a method where diagonalize A, so that we have the equation $S^T A S = D$. The method is based on doing a series of transformations until we end up with A being something close enough to the diagonal, D. The number of iterations we have to do will then be described as m. And for each step we apply the $S^T$ and S for the step before M-1. In general this can be described by equation(4).
+\begin{equation}
+S_{M-1}{T} ... S_2^T S_1^T A S_1S_2 ... S_{M-1} = A^{m} = D
+\end{equation}
+The elements in the S vector will then be the eigenvectors of A, and the diagonal D will contain the eigenvalues. Rewriting this to an algorithm we will use equation(5).
+\begin{equation}
+A^{m + 1} = S_M^T A^{(M)} S_M
+\end{equation}
+The matrix that does the rotation is the $S_M$ matrix, this will rotate the matrix clockwise at four important points $(k, k) = \cos \theta$, $(k, l) = \sin \theta$, $(l, k) = -\sin \theta$ and $(l, l) = \cos \theta$. These points will rotate the matrix to make our biggest off-diagonal value in A go to zero. The algorithm we make will find the biggest value, do a rotation, then search for a new biggest value, do another rotation, and do this on repeat till we are close enough to the diagonal matrix. See equation(6). 
+\begin{equation}
+S_M = \begin{bmatrix} 
+1 & & & & \\
+ & & \cos \theta & \sin \theta & \\
+ & & -\sin \theta & \cos \theta & \\
+ & & & & & 1
+ \end{bmatrix}
+\end{equation} 
+We will also introduse the vector R, that together with $S_M$ creates the span of eigenvectors. The first element of R is the identity matrix. 
+
+\begin{align}
+R^{[M]} = R^{[M - 1]} S_{M - 1}= I S_1, S_2, ... S_{M - 1}
+\end{align}
+
+
+From this matrix we can put up a set of equations, for the different elements in the matrix A, that we can use to make the algorithm.
+\begin{align}
+A^{[2]}(l, l) &= A^{[1]}(l, l) \cos^2 \theta - 2 A(k, l) \cos \theta \sin \theta + A^{[1]}(k, k) \sin^2 \theta \\
+A^{[2]}(k, k) &= A^{[1]}(k, k) \cos^2 \theta + 2 A(k, l) \cos \theta \sin \theta + A^{[1]}(l, l) \sin^2 \theta \\
+A^{[2]}(k, l) &= (A^{[1]}(l, l) - A^{[1]}(k, k))\cos \theta \sin \theta + A^{[1]}(k, l)(\cos^2 \theta - \sin^2 \theta) \rightarrow 0.
+\end{align}
+We reqire the last equation to be zero, and from these equations we get the formula, 
+\begin{align}
+\bigg( \frac{A^{[1]}(l, l) - A^{[1]}(k, k)}{A^{[1]}(k, l)} \bigg)\cos \theta \sin \theta + \cos^2 \theta - \sin^2 \theta = 0
+\end{align}
+To make the algorithm simpler we introduce the notation $\tan \theta = t = \frac{s}{c}$ , $\tau = \frac{A(k, k) - A(l, l)}{2(k, l)}$. A is a symmetric matrix, which means the element (k, l) = (l, k). This gives us, 
+\begin{align}
+\sin^2 \theta + 2\epsilon \cos \theta \sin \theta - \cos^2 \theta &= 0 \\
+t^2 + 2\epsilon t - 1 &= 0.\\
+ -\tau \sqrt{1 + \tau^2} &= t
+\end{align}
+From this we can compute $c = \frac{1}{\sqrt{1 + t^2}}$ and $s = ct$. And from all this we will now be able to compute $A^{[2]}(l, l)$ and $A^{[2]}(k, k)$. And we can make loops of iterations to do this for the next orders as well. This Algorithm is slightly longer, so I will leave this program in the github repo with the name \textit{problem\_4.cpp}. 
 
 
 
@@ -266,11 +307,5 @@ We check only under the diagonal for our program since our matrix is symmetric o
 
 
 
-
-
-
-
-
--
    
 \end{document}
