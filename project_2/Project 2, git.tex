@@ -287,6 +287,55 @@ t^2 + 2\epsilon t - 1 &= 0.\\
 From this we can compute $c = \frac{1}{\sqrt{1 + t^2}}$ and $s = ct$. And from all this we will now be able to compute $A^{[2]}(l, l)$ and $A^{[2]}(k, k)$. And we can make loops of iterations to do this for the next orders as well. This Algorithm is slightly longer, so I will leave this program in the github repo with the name \textit{problem\_4.cpp}. 
 
 
+\subsection*{b)}\
+\\
+If I would be able to make this program work I would be able to do it for a matrix with N = 6. And then I would analyse the results we get from the jacobi rotation method with the analytical results we got from problem 2. I would also see how it compares to the eigenvectors and eigenvalues we found from the armadillo implementation in problem 2. 
+
+
+
+
+\section*{Problem 5}
+\subsection*{a)}\
+\\
+Whenever we have made the program above function, we may use it to figure out the number of iterations needed for a specific matrix before it has reached an almost diagonal matrix. We can run the program with different sizes on the matrix. We choose N = 10, 100 and 1000 for example, and then we see the number of iterations corresponding to this before out matrix becomes close to diagonal. This number is expected to increase more than linearly with N. This is because the rotation matrix will rotate one number at the time, and when rotating, another number that has previous been rotated and now is zero, may be rotated back, and now again be some value. This means that the greater the matrix, the higher the possibility to change back an already fixed number will increase, and therefore the number of iterations will increase more compared to the increasing of the size of the matrix itself. I did not get my program working in the previous task, and therefore making a plot or table with the numbers for these two will be hard to find. But I have just made some random guesses to be able to make some sort of a plot of something that may be something close to the actual graph. The numbers I have guessed, and used in the plot is possible to see in table(3)
+\begin{table}[h!]
+    \centering
+    \caption{Number of iterations/tranformations before the matrix D is close to diagonal, for different sized A NxN matrices.}
+    \begin{tabular}{c@{\hspace{1cm}} c}
+        \hline
+        Iterations [i]& Size of matrix [N]\\
+        \hline
+        10 & 100\\
+        20 & 1000\\
+        50 & 3000\\
+        100 & 15000\\
+        500 & 50000\\
+        1000 & 1000000\\
+        \hline
+    \end{tabular}\label{tab:output_table}
+\end{table}
+Most probably the matrix A is not as big as N here, but probably the number of transformations, or iterations in the program, may be even bigger for smaller N, this may end up giving the program troubles and making it a slow one. In figure(1) we see the plot of this table. Since I had very little values the plot is not very smooth, but it gives an indication of what I thought.
+\begin{figure}[h!]
+    \centering %Centers the figure
+    \includegraphics[scale=0.55]{IN.pdf} %Imports the figure.
+    \caption{Plot of the values descrived in table(3).}
+    \label{fig:rel_err}
+\end{figure}
+
+
+\subsection*{b)}\
+\\
+From Wikipedia I find that the definition of a dense matrix is a matrix where most of the elements are non-zero. Which means that we would have to have even more iterations in the method before we are able to end up with a diagonal matrix. 
+
+
+\section*{Problem 6}
+\subsection*{a)}
+With the discretized x we will use n = 10 steps, which means that our matrix A will be of size n-1, when we remove the endpoints. We will then use the jacobi iteration to make a plot of the three eigenvectors corresponding to the three lowest eigenvalues. From our S matrix we then find the eigenvectors S[i] corresponding to the lowest eigenvalues that we find in the diagonal D. We can then make a program that finds the lowest value in the matrix D, and prints the column and row. From this information we find the corresponding x values. And then we can plot the x against the vectors F[i] for the 3 lowest values. 
+
+
+\subsection*{b)}
+We can repeat the same operation with changing n = 10 steps to n = 100 steps. 
+
 
 
 
